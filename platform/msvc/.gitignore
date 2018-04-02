@@ -1,0 +1,5 @@
+emitter/
+projects/*
+
+!projects/emitter.vcxproj
+!projects/emitter.vcxproj.filters
