@@ -10,7 +10,7 @@ namespace et
 
 P3dInstance::P3dInstance(const P3dTemplate& cfg)
 	: m_et(nullptr)
-	, m_local(true)
+	, m_local(false)
 	, m_active(false)
 {
 	m_et = p3d_emitter_create(cfg.GetCfg());
@@ -98,6 +98,18 @@ void P3dInstance::Clear()
 {
 	if (m_et) {
 		p3d_emitter_clear(m_et);
+	}
+}
+
+bool P3dInstance::IsLoop() const
+{
+	return m_et ? true : m_et->loop;
+}
+
+void P3dInstance::SetLoop(bool loop)
+{
+	if (m_et) {
+		m_et->loop = loop;
 	}
 }
 

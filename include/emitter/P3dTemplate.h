@@ -22,12 +22,19 @@ public:
 	p3d_emitter_cfg* GetCfg() { return m_cfg; }
 
 	p3d_symbol* AddSymbol(const n0::CompAssetPtr& casset);
+	void RemoveSymbol(int idx);
 	void RemoveAllSymbols();
 
 	void SetHori(int min, int max);
 	void SetVert(int min, int max);
 
 	void SetGround(int ground);
+
+	void SetStaticMode(bool is_static);
+
+	void SetOrientToMovement(bool open);
+	
+	void SetBlend(int blend);
 
 private:
 	int m_sym_cap;

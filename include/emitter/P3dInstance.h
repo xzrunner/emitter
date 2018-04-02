@@ -29,8 +29,11 @@ public:
 
 	void Clear();
 
+	bool IsLoop() const;
+	void SetLoop(bool loop);
 	bool IsLocal() const { return m_local; }
-	
+	void SetLocal(bool local) { m_local = local; }
+
 	void SetPos(float x, float y);
 
 private:

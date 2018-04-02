@@ -47,6 +47,30 @@ p3d_symbol* P3dTemplate::AddSymbol(const n0::CompAssetPtr& casset)
 	return &sym;
 }
 
+void P3dTemplate::RemoveSymbol(int idx)
+{
+	if (idx < 0 || idx >= m_cfg->sym_count) {
+		return;
+	}
+
+	GD_ASSERT(m_cfg->sym_count == m_cached.size(), "err count");
+	m_cached.erase(m_cached.begin() + idx);
+	if (m_cfg->sym_count == 1)
+	{
+		m_cfg->sym_count = 0;
+	} 
+	else 
+	{
+		for (int i = idx; i < m_cfg->sym_count - 1; ++i) 
+		{
+			const p3d_symbol* src = &m_cfg->syms[i+1];
+			p3d_symbol* dst = &m_cfg->syms[i];
+			memcpy(dst, src, sizeof(p3d_symbol));
+		}
+		--m_cfg->sym_count;
+	}
+}
+
 void P3dTemplate::RemoveAllSymbols()
 {
 	m_cfg->sym_count = 0;
@@ -68,6 +92,21 @@ void P3dTemplate::SetVert(int min, int max)
 void P3dTemplate::SetGround(int ground)
 {
 	m_cfg->ground = ground;
+}
+
+void P3dTemplate::SetStaticMode(bool is_static)
+{
+	m_cfg->static_mode = is_static;
+}
+
+void P3dTemplate::SetOrientToMovement(bool open)
+{
+	m_cfg->orient_to_movement = open;
+}
+
+void P3dTemplate::SetBlend(int blend)
+{
+	m_cfg->blend = blend;
 }
 
 }
