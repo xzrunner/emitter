@@ -10,6 +10,7 @@
     <ClCompile Include="..\..\..\source\P3dInstance.cpp">
       <Filter>p3d</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\source\GlobalClock.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\emitter\Particle3d.h">
@@ -25,6 +26,7 @@
     <ClInclude Include="..\..\..\include\emitter\P3dInstance.h">
       <Filter>p3d</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\emitter\GlobalClock.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="p3d">
