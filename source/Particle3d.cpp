@@ -72,7 +72,7 @@ void render_func(void* spr, void* sym, float* mat, float x, float y, float angle
 	else if (sym) 
 	{
 		auto casset = static_cast<n0::CompAsset*>(sym);
-		n2::RenderSystem::Draw(*casset, sm::vec2(x, y), angle, 
+		n2::RenderSystem::Instance()->Draw(*casset, sm::vec2(x, y), angle, 
 			sm::vec2(scale, scale), sm::vec2(0, 0), rp_child);
 //		s2_sym->Update(UpdateParams(), time);
 	}
