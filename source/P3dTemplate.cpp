@@ -58,10 +58,10 @@ void P3dTemplate::RemoveSymbol(int idx)
 	if (m_cfg->sym_count == 1)
 	{
 		m_cfg->sym_count = 0;
-	} 
-	else 
+	}
+	else
 	{
-		for (int i = idx; i < m_cfg->sym_count - 1; ++i) 
+		for (int i = idx; i < m_cfg->sym_count - 1; ++i)
 		{
 			const p3d_symbol* src = &m_cfg->syms[i+1];
 			p3d_symbol* dst = &m_cfg->syms[i];

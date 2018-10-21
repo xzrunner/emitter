@@ -33,7 +33,7 @@ public:
 	void SetStaticMode(bool is_static);
 
 	void SetOrientToMovement(bool open);
-	
+
 	void SetBlend(int blend);
 
 private:

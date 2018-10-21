@@ -39,7 +39,7 @@ void blend_end_func()
 	rc.SetBlendEquation(0);	// BLEND_FUNC_ADD
 }
 
-void render_func(void* spr, void* sym, float* mat, float x, float y, float angle, float scale, 
+void render_func(void* spr, void* sym, float* mat, float x, float y, float angle, float scale,
 	             struct ps_color* mul_col, struct ps_color* add_col, int fast_blend, const void* ud, float time)
 {
 	GD_ASSERT(ud, "null ud");
@@ -52,27 +52,27 @@ void render_func(void* spr, void* sym, float* mat, float x, float y, float angle
 	memcpy(&col.add, add_col, sizeof(col.add));
 	rp_child.SetColor(rp->col * col);
 
-	if (rp->local) 
+	if (rp->local)
 	{
 		// local mode, use node's mat
 		rp_child.SetMatrix(rp->mat);
-	} 
-	else 
+	}
+	else
 	{
 		sm::Matrix2D _mat;
 		memcpy(_mat.x, mat, sizeof(_mat.x));
 		rp_child.SetMatrix(_mat);
 	}
 
-	if (spr) 
+	if (spr)
 	{
 		//Sprite* s2_spr = static_cast<Sprite*>(spr);
 		//DrawNode::Draw(s2_spr, *rp_child);
-	} 
-	else if (sym) 
+	}
+	else if (sym)
 	{
 		auto casset = static_cast<n0::CompAsset*>(sym);
-		n2::RenderSystem::Instance()->Draw(*casset, sm::vec2(x, y), angle, 
+		n2::RenderSystem::Instance()->Draw(*casset, sm::vec2(x, y), angle,
 			sm::vec2(scale, scale), sm::vec2(0, 0), rp_child);
 //		s2_sym->Update(UpdateParams(), time);
 	}
@@ -93,7 +93,7 @@ update_func(void* spr, float x, float y)
 	//s2_spr->Update(up);
 }
 
-static void 
+static void
 add_func(p3d_particle* p, void* ud)
 {
 //  	ParticleSystem* ps = (ParticleSystem*)ud;
@@ -124,7 +124,7 @@ add_func(p3d_particle* p, void* ud)
 	//}
 }
 
-static void 
+static void
 remove_func(p3d_particle* p, void* ud)
 {
 // 	ParticleSystem* ps = (ParticleSystem*)ud;
@@ -149,7 +149,7 @@ namespace et
 void Particle3d::Init()
 {
 	p3d_init();
-	p3d_regist_cb(blend_begin_func, blend_end_func, 
+	p3d_regist_cb(blend_begin_func, blend_end_func,
 		render_func, update_func, add_func, remove_func);
 }
 
