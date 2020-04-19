@@ -2,8 +2,7 @@
 #include "emitter/P3dRenderParams.h"
 
 #include <guard/check.h>
-#include <unirender/Blackboard.h>
-#include <unirender/RenderContext.h>
+#include <unirender2/RenderState.h>
 #include <painting2/FastBlendMode.h>
 #include <node0/CompAsset.h>
 #include <node2/RenderSystem.h>
@@ -12,70 +11,82 @@
 namespace
 {
 
+ur2::RenderState RS;
+
 void blend_begin_func(int blend)
 {
-	auto& rc = ur::Blackboard::Instance()->GetRenderContext();
 	switch (blend)
 	{
 	case pt2::FBM_NULL:
-		rc.SetBlend(2, 6);      // BLEND_GL_ONE, BLEND_GL_ONE_MINUS_SRC_ALPHA
-		rc.SetBlendEquation(0); // BLEND_FUNC_ADD
+        RS.blending.enabled = true;
+        RS.blending.separately = false;
+        RS.blending.src = ur2::BlendingFactor::One;
+        RS.blending.dst = ur2::BlendingFactor::OneMinusSrcAlpha;
+        RS.blending.equation = ur2::BlendEquation::Add;
 		break;
 	case pt2::FBM_ADD:
-		rc.SetBlend(2, 2);      // BLEND_GL_ONE, BLEND_GL_ONE
-		rc.SetBlendEquation(0); // BLEND_FUNC_ADD
+        RS.blending.enabled = true;
+        RS.blending.separately = false;
+        RS.blending.src = ur2::BlendingFactor::One;
+        RS.blending.dst = ur2::BlendingFactor::One;
+        RS.blending.equation = ur2::BlendEquation::Add;
 		break;
 	case pt2::FBM_SUBTRACT:
-		rc.SetBlend(2, 6);      // BLEND_GL_ONE, BLEND_GL_ONE_MINUS_SRC_ALPHA
-		rc.SetBlendEquation(1); // BLEND_FUNC_SUBTRACT
+        RS.blending.enabled = true;
+        RS.blending.separately = false;
+        RS.blending.src = ur2::BlendingFactor::One;
+        RS.blending.dst = ur2::BlendingFactor::OneMinusSrcAlpha;
+        RS.blending.equation = ur2::BlendEquation::Subtract;
 		break;
 	}
 }
 
 void blend_end_func()
 {
-	auto& rc = ur::Blackboard::Instance()->GetRenderContext();
-	rc.SetBlend(2, 6);		// BLEND_GL_ONE, BLEND_GL_ONE_MINUS_SRC_ALPHA
-	rc.SetBlendEquation(0);	// BLEND_FUNC_ADD
+    RS.blending.enabled = true;
+    RS.blending.separately = false;
+    RS.blending.src = ur2::BlendingFactor::One;
+    RS.blending.dst = ur2::BlendingFactor::OneMinusSrcAlpha;
+    RS.blending.equation = ur2::BlendEquation::Add;
 }
 
 void render_func(void* spr, void* sym, float* mat, float x, float y, float angle, float scale,
 	             struct ps_color* mul_col, struct ps_color* add_col, int fast_blend, const void* ud, float time)
 {
-	GD_ASSERT(ud, "null ud");
-	const et::P3dRenderParams* rp = (static_cast<const et::P3dRenderParams*>(ud));
-
-	n2::RenderParams rp_child;
-
-	pt2::RenderColorCommon col;
-	memcpy(&col.mul, mul_col, sizeof(col.mul));
-	memcpy(&col.add, add_col, sizeof(col.add));
-	rp_child.SetColor(rp->col * col);
-
-	if (rp->local)
-	{
-		// local mode, use node's mat
-		rp_child.SetMatrix(rp->mat);
-	}
-	else
-	{
-		sm::Matrix2D _mat;
-		memcpy(_mat.x, mat, sizeof(_mat.x));
-		rp_child.SetMatrix(_mat);
-	}
-
-	if (spr)
-	{
-		//Sprite* s2_spr = static_cast<Sprite*>(spr);
-		//DrawNode::Draw(s2_spr, *rp_child);
-	}
-	else if (sym)
-	{
-		auto casset = static_cast<n0::CompAsset*>(sym);
-		n2::RenderSystem::Instance()->Draw(*casset, sm::vec2(x, y), angle,
-			sm::vec2(scale, scale), sm::vec2(0, 0), rp_child);
-//		s2_sym->Update(UpdateParams(), time);
-	}
+//	GD_ASSERT(ud, "null ud");
+//	const et::P3dRenderParams* rp = (static_cast<const et::P3dRenderParams*>(ud));
+//
+//	n2::RenderParams rp_child;
+//
+//	pt2::RenderColorCommon col;
+//	memcpy(&col.mul, mul_col, sizeof(col.mul));
+//	memcpy(&col.add, add_col, sizeof(col.add));
+//	rp_child.SetColor(rp->col * col);
+//
+//	if (rp->local)
+//	{
+//		// local mode, use node's mat
+//		rp_child.SetMatrix(rp->mat);
+//	}
+//	else
+//	{
+//		sm::Matrix2D _mat;
+//		memcpy(_mat.x, mat, sizeof(_mat.x));
+//		rp_child.SetMatrix(_mat);
+//	}
+//
+//	if (spr)
+//	{
+//		//Sprite* s2_spr = static_cast<Sprite*>(spr);
+//		//DrawNode::Draw(s2_spr, *rp_child);
+//	}
+//	else if (sym)
+//	{
+//		auto casset = static_cast<n0::CompAsset*>(sym);
+//		n2::RenderSystem::Instance()->Draw(*casset, sm::vec2(x, y), angle,
+//			sm::vec2(scale, scale), sm::vec2(0, 0), rp_child);
+////		s2_sym->Update(UpdateParams(), time);
+//	}
 }
 
 static void
