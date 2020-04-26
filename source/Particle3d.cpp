@@ -20,21 +20,21 @@ void blend_begin_func(int blend)
 	case pt2::FBM_NULL:
         RS.blending.enabled = true;
         RS.blending.separately = false;
-        RS.blending.src = ur2::BlendingFactor::One;
+        RS.blending.src = ur2::BlendingFactor::SrcAlpha;
         RS.blending.dst = ur2::BlendingFactor::OneMinusSrcAlpha;
         RS.blending.equation = ur2::BlendEquation::Add;
 		break;
 	case pt2::FBM_ADD:
         RS.blending.enabled = true;
         RS.blending.separately = false;
-        RS.blending.src = ur2::BlendingFactor::One;
+        RS.blending.src = ur2::BlendingFactor::SrcAlpha;
         RS.blending.dst = ur2::BlendingFactor::One;
         RS.blending.equation = ur2::BlendEquation::Add;
 		break;
 	case pt2::FBM_SUBTRACT:
         RS.blending.enabled = true;
         RS.blending.separately = false;
-        RS.blending.src = ur2::BlendingFactor::One;
+        RS.blending.src = ur2::BlendingFactor::SrcAlpha;
         RS.blending.dst = ur2::BlendingFactor::OneMinusSrcAlpha;
         RS.blending.equation = ur2::BlendEquation::Subtract;
 		break;
@@ -45,7 +45,7 @@ void blend_end_func()
 {
     RS.blending.enabled = true;
     RS.blending.separately = false;
-    RS.blending.src = ur2::BlendingFactor::One;
+    RS.blending.src = ur2::BlendingFactor::SrcAlpha;
     RS.blending.dst = ur2::BlendingFactor::OneMinusSrcAlpha;
     RS.blending.equation = ur2::BlendEquation::Add;
 }
