@@ -2,7 +2,7 @@
 #include "emitter/P3dRenderParams.h"
 
 #include <guard/check.h>
-#include <unirender2/RenderState.h>
+#include <unirender/RenderState.h>
 #include <painting2/FastBlendMode.h>
 #include <node0/CompAsset.h>
 #include <node2/RenderSystem.h>
@@ -11,7 +11,7 @@
 namespace
 {
 
-ur2::RenderState RS;
+ur::RenderState RS;
 
 void blend_begin_func(int blend)
 {
@@ -20,23 +20,23 @@ void blend_begin_func(int blend)
 	case pt2::FBM_NULL:
         RS.blending.enabled = true;
         RS.blending.separately = false;
-        RS.blending.src = ur2::BlendingFactor::SrcAlpha;
-        RS.blending.dst = ur2::BlendingFactor::OneMinusSrcAlpha;
-        RS.blending.equation = ur2::BlendEquation::Add;
+        RS.blending.src = ur::BlendingFactor::SrcAlpha;
+        RS.blending.dst = ur::BlendingFactor::OneMinusSrcAlpha;
+        RS.blending.equation = ur::BlendEquation::Add;
 		break;
 	case pt2::FBM_ADD:
         RS.blending.enabled = true;
         RS.blending.separately = false;
-        RS.blending.src = ur2::BlendingFactor::SrcAlpha;
-        RS.blending.dst = ur2::BlendingFactor::One;
-        RS.blending.equation = ur2::BlendEquation::Add;
+        RS.blending.src = ur::BlendingFactor::SrcAlpha;
+        RS.blending.dst = ur::BlendingFactor::One;
+        RS.blending.equation = ur::BlendEquation::Add;
 		break;
 	case pt2::FBM_SUBTRACT:
         RS.blending.enabled = true;
         RS.blending.separately = false;
-        RS.blending.src = ur2::BlendingFactor::SrcAlpha;
-        RS.blending.dst = ur2::BlendingFactor::OneMinusSrcAlpha;
-        RS.blending.equation = ur2::BlendEquation::Subtract;
+        RS.blending.src = ur::BlendingFactor::SrcAlpha;
+        RS.blending.dst = ur::BlendingFactor::OneMinusSrcAlpha;
+        RS.blending.equation = ur::BlendEquation::Subtract;
 		break;
 	}
 }
@@ -45,9 +45,9 @@ void blend_end_func()
 {
     RS.blending.enabled = true;
     RS.blending.separately = false;
-    RS.blending.src = ur2::BlendingFactor::SrcAlpha;
-    RS.blending.dst = ur2::BlendingFactor::OneMinusSrcAlpha;
-    RS.blending.equation = ur2::BlendEquation::Add;
+    RS.blending.src = ur::BlendingFactor::SrcAlpha;
+    RS.blending.dst = ur::BlendingFactor::OneMinusSrcAlpha;
+    RS.blending.equation = ur::BlendEquation::Add;
 }
 
 void render_func(void* spr, void* sym, float* mat, float x, float y, float angle, float scale,
